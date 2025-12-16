@@ -9,10 +9,8 @@
     
     <style>
         :root {
-            --bg-body: #f0f2f5;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            /* Vibrant Gradients */
+            --bg-body: #f8fafc;
+            --sidebar-width: 300px;
             --grad-sidebar: linear-gradient(180deg, #2563eb 0%, #7c3aed 100%);
             --grad-card-1: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             --grad-card-2: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
@@ -20,198 +18,142 @@
             --grad-card-4: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
         }
 
+        html {
+            scroll-behavior: smooth; /* This fixes the clicking issue! */
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-body);
-            color: var(--text-dark);
-            display: flex;
-            height: 100vh;
-            overflow: hidden; 
+            color: #1e293b;
         }
 
-        /* --- VIBRANT SIDEBAR --- */
+        /* --- FIXED SIDEBAR --- */
         .sidebar {
-            width: 300px;
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
             background: var(--grad-sidebar);
             color: white;
             display: flex;
             flex-direction: column;
             padding: 40px 30px;
-            flex-shrink: 0;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 10;
+            z-index: 100;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
         }
 
-        .profile-section {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+        .profile-section { text-align: center; margin-bottom: 40px; }
 
+        /* PHOTO STYLING */
         .profile-img {
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: cover; /* Ensures photo doesn't stretch */
             border: 5px solid rgba(255,255,255,0.3);
             margin-bottom: 20px;
-            background-color: white; /* Fallback */
+            background-color: white;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        .profile-name {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-        }
-
+        .profile-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; }
         .profile-role {
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
             background: rgba(0,0,0,0.2);
             padding: 5px 15px;
             border-radius: 20px;
             display: inline-block;
         }
 
-        .nav-menu {
-            list-style: none;
-            flex-grow: 1;
-        }
-
-        .nav-item { margin-bottom: 12px; }
+        .nav-menu { list-style: none; flex-grow: 1; }
+        .nav-item { margin-bottom: 15px; }
 
         .nav-link {
             display: flex;
             align-items: center;
-            padding: 14px 20px;
-            color: rgba(255,255,255,0.7);
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
             border-radius: 12px;
-            transition: all 0.3s;
             font-weight: 600;
-            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .nav-link:hover, .nav-link.active {
-            background-color: white;
+        .nav-link:hover {
+            background: white;
             color: #4f46e5;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transform: translateX(5px);
+            transform: translateX(10px);
         }
 
         .nav-link i { margin-right: 15px; width: 20px; text-align: center; }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-btn {
-            color: white;
-            font-size: 1.3rem;
-            opacity: 0.7;
-            transition: all 0.3s;
-        }
+        .social-links { display: flex; justify-content: center; gap: 20px; }
+        .social-btn { color: white; font-size: 1.4rem; opacity: 0.8; transition: 0.3s; }
         .social-btn:hover { opacity: 1; transform: scale(1.1); }
 
-        /* --- MAIN CONTENT AREA --- */
+        /* --- MAIN CONTENT (OFFSET) --- */
         .main-content {
-            flex-grow: 1;
-            overflow-y: auto; 
-            padding: 40px;
-            background: #f8fafc;
+            margin-left: var(--sidebar-width);
+            padding: 50px;
+            max-width: 1200px;
         }
 
-        .page-section {
-            display: none; 
-            animation: slideUp 0.5s ease-out;
-            max-width: 1000px;
-            margin: 0 auto;
+        section {
+            margin-bottom: 100px; /* Space between sections */
+            padding-top: 20px; /* Space for scrolling */
         }
 
-        .page-section.active { display: block; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Hero Banner */
         .hero-banner {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border-radius: 20px;
-            padding: 40px;
+            padding: 50px;
             color: white;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
         }
-        
-        .hero-banner::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 200px; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05));
-            transform: skewX(-20deg);
+        .hero-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: #1e293b;
+            border-bottom: 3px solid #e2e8f0;
+            padding-bottom: 10px;
+            display: inline-block;
         }
 
-        .hero-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
-        .hero-text { font-size: 1.1rem; opacity: 0.8; max-width: 700px; line-height: 1.6; }
-
-        /* --- VIBRANT STAT CARDS --- */
+        /* --- CARDS & GRIDS --- */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .stat-card {
-            padding: 25px;
-            border-radius: 20px;
+            padding: 30px;
+            border-radius: 15px;
             color: white;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             transition: transform 0.2s;
             position: relative;
             overflow: hidden;
         }
-        
         .stat-card:hover { transform: translateY(-5px); }
-
         .stat-card.blue { background: var(--grad-card-1); }
         .stat-card.purple { background: var(--grad-card-2); }
         .stat-card.teal { background: var(--grad-card-3); }
         .stat-card.orange { background: var(--grad-card-4); }
 
-        .card-icon-bg {
-            position: absolute;
-            top: -10px; right: -10px;
-            font-size: 8rem;
-            opacity: 0.1;
-            transform: rotate(15deg);
-        }
-
-        .card-value { font-size: 2.5rem; font-weight: 800; margin-bottom: 5px; }
-        .card-label { font-size: 1rem; opacity: 0.9; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- CONTENT STYLES --- */
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #334155;
-            border-left: 5px solid #2563eb;
-            padding-left: 15px;
-        }
-
+        .card-value { font-size: 2.5rem; font-weight: 800; }
+        .card-label { font-size: 1rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* --- TIMELINE --- */
         .content-card {
             background: white;
             padding: 30px;
@@ -221,60 +163,39 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* Timeline / Experience */
         .job-item {
             border-left: 3px solid #e2e8f0;
-            padding-left: 30px;
+            padding-left: 25px;
             position: relative;
             margin-bottom: 40px;
         }
-        
         .job-item::before {
-            content: '';
-            position: absolute;
-            left: -8.5px; top: 5px;
-            width: 14px; height: 14px;
-            border-radius: 50%;
-            background: #2563eb;
-            border: 3px solid white;
+            content: ''; position: absolute; left: -9px; top: 5px;
+            width: 15px; height: 15px; border-radius: 50%;
+            background: #2563eb; border: 3px solid white;
             box-shadow: 0 0 0 3px #bfdbfe;
         }
-
-        .job-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .job-title { font-size: 1.2rem; font-weight: 700; color: #1e293b; }
-        .company { color: #2563eb; font-weight: 600; }
-        .date { background: #eff6ff; color: #2563eb; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
-
-        ul.job-details li {
-            margin-bottom: 8px;
-            color: #475569;
-            list-style: none;
-            position: relative;
-            padding-left: 20px;
-        }
-        ul.job-details li::before {
-            content: "•";
-            color: #2563eb;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        /* Skills Progress Bars */
-        .skill-group { margin-bottom: 25px; }
-        .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; color: #334155; }
-        .progress-bg { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; }
-        .progress-fill { height: 100%; border-radius: 5px; animation: fillBar 1.5s ease-out; }
+        .job-title { font-size: 1.3rem; font-weight: 700; color: #1e293b; }
+        .company { color: #2563eb; font-weight: 600; font-size: 1.1rem; }
+        .date { font-size: 0.9rem; color: #64748b; margin-bottom: 10px; display: block; }
         
-        @keyframes fillBar { from { width: 0; } }
+        ul.job-details li { margin-bottom: 8px; color: #475569; margin-left: 20px; }
 
-        /* Responsive */
-        @media (max-width: 800px) {
-            body { flex-direction: column; height: auto; overflow: auto; }
-            .sidebar { width: 100%; padding: 30px; text-align: center; }
+        /* --- SKILL BARS --- */
+        .skill-group { margin-bottom: 20px; }
+        .skill-label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; }
+        .progress-bg { background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 6px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 850px) {
+            .sidebar {
+                width: 100%; height: auto; position: relative;
+                padding: 20px; text-align: center;
+            }
             .profile-img { margin: 0 auto 15px; }
             .nav-link { justify-content: center; }
-            .main-content { padding: 20px; }
+            .main-content { margin-left: 0; padding: 20px; }
         }
     </style>
 </head>
@@ -282,136 +203,123 @@
 
     <aside class="sidebar">
         <div class="profile-section">
-            <img src="profile.jpg" alt="Profile" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Naveen+Mandula&background=ffffff&color=2563eb&size=150'">
+            <img src="profile.jpg" alt="Naveen Mandula" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Naveen+Mandula&background=ffffff&color=2563eb&size=150'">
+            
             <div class="profile-name">Naveen Mandula</div>
             <div class="profile-role">Data Analyst</div>
         </div>
 
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a class="nav-link active" onclick="showPage('overview')"><i class="fas fa-home"></i> Overview</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" onclick="showPage('experience')"><i class="fas fa-briefcase"></i> Experience</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" onclick="showPage('projects')"><i class="fas fa-layer-group"></i> Projects</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" onclick="showPage('skills')"><i class="fas fa-code"></i> Skills</a>
-            </li>
-        </ul>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#overview" class="nav-link"><i class="fas fa-home"></i> Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link"><i class="fas fa-layer-group"></i> Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link"><i class="fas fa-code"></i> Skills</a>
+                </li>
+            </ul>
+        </nav>
 
         <div class="social-links">
             <a href="https://www.linkedin.com/in/mandulan%C4%B1" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
             <a href="mailto:naveenmandula0511@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+            
             <a href="resume.pdf" target="_blank" class="social-btn" title="Download Resume"><i class="fas fa-file-pdf"></i></a>
         </div>
     </aside>
 
     <main class="main-content">
 
-        <div id="overview" class="page-section active">
+        <section id="overview">
             <div class="hero-banner">
                 <div class="hero-title">Hello, I'm Naveen.</div>
-                <div class="hero-text">
-                    A Results-oriented Data Analyst and MIS Graduate. I specialize in transforming complex datasets (1M+ rows) into actionable business strategies for Fintech and Supply Chain sectors.
-                </div>
+                <p style="font-size: 1.2rem; opacity: 0.9; line-height: 1.6;">
+                    Results-oriented Data Analyst and MIS Graduate. I specialize in transforming complex datasets (1M+ rows) into actionable business strategies for Fintech and Supply Chain sectors.
+                </p>
             </div>
 
-            <div class="section-title">Key Impact Metrics</div>
             <div class="dashboard-grid">
                 <div class="stat-card blue">
-                    <i class="fas fa-database card-icon-bg"></i>
                     <div class="card-value">1M+</div>
                     <div class="card-label">Rows Analyzed</div>
                 </div>
                 <div class="stat-card purple">
-                    <i class="fas fa-clock card-icon-bg"></i>
                     <div class="card-value">30%</div>
                     <div class="card-label">Efficiency Gain</div>
                 </div>
                 <div class="stat-card teal">
-                    <i class="fas fa-users card-icon-bg"></i>
                     <div class="card-value">500k</div>
                     <div class="card-label">Daily Records</div>
                 </div>
                 <div class="stat-card orange">
-                    <i class="fas fa-chart-pie card-icon-bg"></i>
                     <div class="card-value">9.7</div>
                     <div class="card-label">Master's CGPA</div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="experience" class="page-section">
-            <div class="section-title">Career Timeline</div>
+        <section id="experience">
+            <div class="section-title">Experience</div>
+            
             <div class="content-card">
-                
                 <div class="job-item">
-                    <div class="job-header">
-                        <div>
-                            <div class="job-title">Data Analyst Intern</div>
-                            <div class="company">Corporate Initiatives</div>
-                        </div>
-                        <div class="date">Jul 2025 - Present</div>
-                    </div>
+                    <div class="job-title">Data Analyst Intern</div>
+                    <div class="company">Corporate Initiatives</div>
+                    <span class="date">July 2025 - Present</span>
                     <ul class="job-details">
-                        <li>Developed Power BI dashboards to track event KPIs and registration conversion rates.</li>
-                        <li>Automated post-event reporting using Excel Macros, reducing manual data entry time by 30%.</li>
-                        <li>Partnered with Product and Sales teams to align event strategies with GTM goals.</li>
+                        [cite_start]<li>Developed Power BI dashboards to track event KPIs and registration conversion rates[cite: 183].</li>
+                        [cite_start]<li>Automated post-event reporting using Excel Macros, reducing manual data entry time by 30% [cite: 185-186].</li>
+                        [cite_start]<li>Partnered with Product and Sales teams to align event strategies with GTM goals[cite: 187].</li>
                     </ul>
                 </div>
 
                 <div class="job-item">
-                    <div class="job-header">
-                        <div>
-                            <div class="job-title">Data Analyst / Consultant</div>
-                            <div class="company">Insight Hub</div>
-                        </div>
-                        <div class="date">Nov 2024 - Present</div>
-                    </div>
+                    <div class="job-title">Data Analyst / Consultant</div>
+                    <div class="company">Insight Hub</div>
+                    <span class="date">Nov 2024 - Present</span>
                     <ul class="job-details">
-                        <li>Leveraged advanced SQL to analyze high-volume transaction data (500k+ records) for fintech.</li>
-                        <li>Implemented rigorous validation scripts in Python to ensure data privacy and integrity.</li>
-                        <li>Led data mapping efforts to aggregate legacy schemas into a Master Data framework.</li>
+                        [cite_start]<li>Leveraged advanced SQL to analyze high-volume transaction data (500k+ records) for fintech [cite: 194-195].</li>
+                        [cite_start]<li>Implemented rigorous validation scripts in Python to ensure data privacy and integrity[cite: 198].</li>
+                        [cite_start]<li>Led data mapping efforts to aggregate legacy schemas into a Master Data framework[cite: 202].</li>
                     </ul>
                 </div>
-
             </div>
-        </div>
+        </section>
 
-        <div id="projects" class="page-section">
-            <div class="section-title">Portfolio Projects</div>
+        <section id="projects">
+            <div class="section-title">Projects</div>
             
             <div class="dashboard-grid">
-                <div class="stat-card teal" style="cursor: pointer;" onclick="window.open('#', '_blank')">
-                    <i class="fas fa-truck card-icon-bg"></i>
-                    <div style="font-size: 1.2rem; font-weight: 800; margin-bottom: 10px;">Supply Chain Dashboard</div>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Visualized shipping delay patterns across 5 global regions using Tableau to identify 'Last Mile' risks.</p>
-                    <div style="margin-top: 15px; font-weight: 700; font-size: 0.9rem;">View Dashboard &rarr;</div>
+                <div class="stat-card teal">
+                    <div style="font-size: 1.4rem; font-weight: 800; margin-bottom: 10px;">Supply Chain Dashboard</div>
+                    <p style="font-size: 0.95rem; opacity: 0.9; margin-bottom: 20px;">Visualized shipping delay patterns across 5 global regions using Tableau to identify 'Last Mile' risks.</p>
+                    <a href="#" style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; color: white; text-decoration: none; font-weight: bold;">Coming Soon</a>
                 </div>
 
                 <div class="stat-card purple">
-                    <i class="fas fa-chart-line card-icon-bg"></i>
-                    <div style="font-size: 1.2rem; font-weight: 800; margin-bottom: 10px;">Market Liquidity Analysis</div>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Utilized advanced SQL (UNION ALL) to normalize data fields and compare Daily Active Users vs. Transaction Volume.</p>
+                    <div style="font-size: 1.4rem; font-weight: 800; margin-bottom: 10px;">Market Liquidity Analysis</div>
+                    <p style="font-size: 0.95rem; opacity: 0.9;">Utilized advanced SQL (UNION ALL) to normalize data fields and compare Daily Active Users vs. Transaction Volume.</p>
                 </div>
 
                 <div class="stat-card orange">
-                    <i class="fas fa-robot card-icon-bg"></i>
-                    <div style="font-size: 1.2rem; font-weight: 800; margin-bottom: 10px;">Emerging Tech Index</div>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Constructed a real-time market index for the emerging 'AI Agent' asset class to quantify sector trends.</p>
+                    <div style="font-size: 1.4rem; font-weight: 800; margin-bottom: 10px;">Emerging Tech Index</div>
+                    <p style="font-size: 0.95rem; opacity: 0.9;">Constructed a real-time market index for the emerging 'AI Agent' asset class to quantify sector trends.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="skills" class="page-section">
-            <div class="section-title">Technical Proficiency</div>
+        <section id="skills">
+            <div class="section-title">Technical Skills</div>
+            
             <div class="content-card">
-                
                 <div class="skill-group">
-                    <div class="skill-label"><span>SQL (Advanced Queries, CTEs)</span> <span>95%</span></div>
+                    <div class="skill-label"><span>SQL (Advanced)</span> <span>95%</span></div>
                     <div class="progress-bg"><div class="progress-fill" style="width: 95%; background: #2563eb;"></div></div>
                 </div>
 
@@ -421,7 +329,7 @@
                 </div>
 
                 <div class="skill-group">
-                    <div class="skill-label"><span>Python (Pandas, NumPy)</span> <span>80%</span></div>
+                    <div class="skill-label"><span>Python (Pandas)</span> <span>80%</span></div>
                     <div class="progress-bg"><div class="progress-fill" style="width: 80%; background: #14b8a6;"></div></div>
                 </div>
 
@@ -429,34 +337,10 @@
                     <div class="skill-label"><span>Excel (Macros/VBA)</span> <span>90%</span></div>
                     <div class="progress-bg"><div class="progress-fill" style="width: 90%; background: #f97316;"></div></div>
                 </div>
-
-                <div class="skill-group">
-                    <div class="skill-label"><span>ETL & Data Modeling</span> <span>85%</span></div>
-                    <div class="progress-bg"><div class="progress-fill" style="width: 85%; background: #ec4899;"></div></div>
-                </div>
-
             </div>
-        </div>
+        </section>
 
     </main>
 
-    <script>
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-
-            // Set active nav link
-            const links = document.querySelectorAll('.nav-link');
-            for(let link of links) {
-                if(link.getAttribute('onclick').includes(pageId)) {
-                    link.classList.add('active');
-                }
-            }
-        }
-    </script>
 </body>
 </html>
