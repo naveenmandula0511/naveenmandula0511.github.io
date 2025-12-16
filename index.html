@@ -3,143 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naveen Mandula | Data Analyst</title>
+    <title>Naveen Mandula | Analytics Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Modern Dark Theme Variables */
         :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8; /* Light Blue */
-            --accent-hover: #0ea5e9;
-            --card-border: #334155;
+            --sidebar-bg: #1e293b;
+            --main-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-light: #94a3b8;
+            /* Dashboard Colors */
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-teal: #14b8a6;
+            --accent-orange: #f97316;
+            --accent-pink: #ec4899;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--main-bg);
+            color: var(--text-dark);
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* Prevent body scroll, layout handles it */
         }
 
-        /* Layout */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            flex-shrink: 0;
         }
 
-        /* Header */
-        header {
+        .profile-section {
             text-align: center;
-            padding: 80px 0 40px;
-            border-bottom: 1px solid var(--card-border);
+            margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            color: var(--text-primary);
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-blue);
+            margin-bottom: 15px;
+            background-color: #334155; /* Fallback color if no image */
         }
 
-        .role-title {
-            font-size: 1.25rem;
-            color: var(--accent);
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .contact-info a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .contact-info a:hover {
-            color: var(--accent);
-        }
-
-        /* Sections */
-        section {
-            padding: 60px 0;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        section:last-child {
-            border-bottom: none;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            border-left: 4px solid var(--accent);
-            padding-left: 15px;
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-category {
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .skill-category h3 {
-            color: var(--accent);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .skill-list {
-            list-style: none;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .skill-list li {
+        .profile-name {
+            font-size: 1.4rem;
+            font-weight: 800;
             margin-bottom: 5px;
         }
 
-        /* Experience & Projects */
-        .card {
-            background: var(--bg-secondary);
-            padding: 25px;
+        .profile-role {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #cbd5e1;
+            text-decoration: none;
             border-radius: 8px;
-            margin-bottom: 25px;
-            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-link i { margin-right: 12px; width: 20px; text-align: center; }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-btn:hover { color: var(--accent-blue); }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main-content {
+            flex-grow: 1;
+            overflow-y: auto; /* Allow scrolling inside the content area */
+            padding: 40px;
+        }
+
+        .page-section {
+            display: none; /* Hide all pages by default */
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block; /* Show active page */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            border-bottom: 3px solid var(--accent-blue);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* --- DASHBOARD CARDS --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid var(--accent-blue);
             transition: transform 0.2s;
         }
+        
+        .stat-card:hover { transform: translateY(-5px); }
 
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
+        .stat-card.purple { border-top-color: var(--accent-purple); }
+        .stat-card.teal { border-top-color: var(--accent-teal); }
+        .stat-card.orange { border-top-color: var(--accent-orange); }
+        .stat-card.pink { border-top-color: var(--accent-pink); }
+
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #64748b;
         }
 
-        .card-header {
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .card-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- CONTENT STYLES --- */
+        .content-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .job-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -147,242 +207,186 @@
             flex-wrap: wrap;
         }
 
-        .card-title {
-            font-size: 1.2rem;
+        .job-title { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); }
+        .company-name { color: var(--accent-blue); font-weight: 600; }
+        .job-date { background: #f1f5f9; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; color: #64748b; font-weight: 600; }
+
+        ul.styled-list { list-style: none; }
+        ul.styled-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+            color: #475569;
+        }
+        ul.styled-list li::before {
+            content: "•";
+            color: var(--accent-blue);
             font-weight: bold;
-            color: var(--text-primary);
+            position: absolute;
+            left: 0;
         }
 
-        .card-subtitle {
+        /* Skills Tags */
+        .skill-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #e0f2fe;
+            color: #0369a1;
+            border-radius: 6px;
+            margin: 0 5px 5px 0;
             font-size: 0.9rem;
-            color: var(--accent);
-            margin-top: 5px;
+            font-weight: 600;
         }
+        .skill-tag.tools { background: #f3e8ff; color: #7e22ce; }
+        .skill-tag.method { background: #ffedd5; color: #c2410c; }
 
-        .card-date {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-
-        .card-content ul {
-            list-style-position: inside;
-            color: var(--text-secondary);
-            margin-top: 10px;
-        }
-
-        .card-content li {
-            margin-bottom: 8px;
-        }
-
-        /* Education */
-        .education-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 15px;
-        }
-        .education-item:last-child { border-bottom: none; }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .education-item { flex-direction: column; }
-            .card-header { flex-direction: column; }
-            .card-date { margin-top: 5px; }
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            body { flex-direction: column; height: auto; overflow: auto; }
+            .sidebar { width: 100%; padding: 20px; text-align: center; }
+            .profile-img { margin: 0 auto 15px; }
+            .main-content { padding: 20px; }
+            .job-header { flex-direction: column; gap: 5px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <header>
-            <h1>Naveen Mandula</h1>
-            <div class="role-title">Data Analyst | Business Intelligence Specialist</div>
+    <aside class="sidebar">
+        <div class="profile-section">
+            <img src="profile.jpg" alt="Naveen Mandula" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Naveen+Mandula&background=0D8ABC&color=fff'">
+            <div class="profile-name">Naveen Mandula</div>
+            <div class="profile-role">Data Analyst</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" onclick="showPage('overview')">
+                    <i class="fas fa-th-large"></i> Overview
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showPage('experience')">
+                    <i class="fas fa-briefcase"></i> Experience
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showPage('projects')">
+                    <i class="fas fa-chart-pie"></i> Projects
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showPage('skills')">
+                    <i class="fas fa-code"></i> Skills
+                </a>
+            </li>
+        </ul>
+
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/mandulan%C4%B1" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:naveenmandula0511@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+            <a href="resume.pdf" target="_blank" class="social-btn"><i class="fas fa-file-pdf"></i></a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <div id="overview" class="page-section active">
+            <div class="header-title">Executive Summary</div>
             
-            <div class="contact-info">
-                <a href="mailto:naveenmandula0511@gmail.com"><i class="fas fa-envelope"></i> Email Me</a>
-                <a href="https://www.linkedin.com/in/mandulan%C4%B1" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="tel:+13348951429"><i class="fas fa-phone"></i> +1 334-895-1429</a>
-                <a href="#"><i class="fas fa-file-pdf"></i> Download Resume</a>
-            </div>
-        </header>
-
-        <section>
-            <h2>Profile</h2>
-            <p style="color: var(--text-secondary); font-size: 1.1rem;">
-                Results-oriented Data Analyst and Master of MIS graduate with expertise in SQL-based data extraction, dashboard development, and business intelligence. 
-                Proven track record of querying complex, unstructured transaction datasets (1M+ rows) to generate actionable insights. 
-                Skilled in transforming raw logs into visual narratives using Power BI and Tableau to support strategic decision-making. 
-                [cite_start]Passionate about bridging the gap between technical data structures and business KPIs [cite: 151-154].
-            </p>
-        </section>
-
-        <section>
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Analysis & Programming</h3>
-                    <ul class="skill-list">
-                        <li>SQL (Advanced Queries, CTEs)</li>
-                        <li>Python (Pandas, NumPy) & R</li>
-                        <li>ETL Processes & Data Modeling</li>
-                        <li>Root-Cause Analysis</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-chart-bar"></i> Visualization & BI</h3>
-                    <ul class="skill-list">
-                        <li>Power BI (DAX)</li>
-                        <li>Tableau & Modern BI Tools</li>
-                        <li>Excel (Macros/VBA, Financial Modeling)</li>
-                        <li>Data Verification & Quality</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> Tools & Platforms</h3>
-                    <ul class="skill-list">
-                        <li>Jira & Confluence</li>
-                        <li>Microsoft Azure Fundamentals</li>
-                        <li>Relational Databases</li>
-                        <li>Master Data Management (MDM)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Featured Projects</h2>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Global Supply Chain Efficiency Dashboard</div>
-                        <div class="card-subtitle">Tableau & SQL</div>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        [cite_start]<li><strong>Objective:</strong> Analyzed shipping delay patterns across 5 global regions to identify risk factors in "Last Mile" delivery[cite: 178].</li>
-                        [cite_start]<li><strong>Action:</strong> Conducted root-cause analysis on shipping delay patterns to identify risk factors and develop solutions for delivery challenges[cite: 179].</li>
-                        <li><a href="#" style="color:var(--accent);">View Dashboard &rarr;</a></li>
-                    </ul>
-                </div>
+            <div class="content-card">
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    Results-oriented <strong>Data Analyst</strong> and Master of MIS graduate with expertise in SQL-based data extraction, dashboard development, and business intelligence. 
+                    Proven track record of querying complex, unstructured transaction datasets <strong>(1M+ rows)</strong> to generate actionable insights. 
+                    Passionate about bridging the gap between technical data structures and business KPIs.
+                </p>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Market Liquidity & Comparative Sector Analysis</div>
-                        <div class="card-subtitle">SQL & Visualization</div>
-                    </div>
+            <div class="header-title" style="font-size: 1.5rem; margin-top: 20px;">Key Metrics</div>
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="card-icon"><i class="fas fa-database"></i></div>
+                    <div class="card-value">1M+</div>
+                    <div class="card-label">Rows Analyzed</div>
                 </div>
-                <div class="card-content">
-                    <ul>
-                        [cite_start]<li><strong>Methodology:</strong> Utilized advanced SQL (UNION ALL) to aggregate disparate database schemas, normalizing data fields to compare Daily Active Users against Transaction Volume[cite: 173].</li>
-                        [cite_start]<li><strong>Outcome:</strong> Visualized a clear divergence in user adoption, providing data-backed signals on retail customer migration patterns[cite: 174].</li>
-                    </ul>
+                <div class="stat-card purple">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="card-value">30%</div>
+                    <div class="card-label">Efficiency Gain</div>
                 </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Emerging Tech Sector Index</div>
-                        <div class="card-subtitle">Data Modeling</div>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        [cite_start]<li>Constructed a real-time market index for the emerging "AI Agent" asset class to quantify sector-wide liquidity and adoption trends[cite: 176].</li>
-                    </ul>
+                <div class="stat-card teal">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <div class="card-value">500k+</div>
+                    <div class="card-label">User Records</div>
                 </div>
             </div>
-        </section>
-
-        <section>
-            <h2>Professional Experience</h2>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Data Analyst Intern</div>
-                        <div class="card-subtitle">Corporate Initiatives (Internship)</div>
-                    </div>
-                    <div class="card-date">07/2025 - Present</div>
-                </div>
-                <div class="card-content">
-                    [cite_start]<p style="color: var(--text-secondary); margin-bottom: 10px;">Focused on data-driven ROI analysis for corporate initiatives and engagement strategies[cite: 182].</p>
-                    <ul>
-                        [cite_start]<li><strong>Analytics & Reporting:</strong> Developed Power BI dashboards to track event KPIs, registration conversion rates, and engagement metrics[cite: 183].</li>
-                        [cite_start]<li><strong>Data Management:</strong> Managed complex datasets within Excel and Workday, utilizing Macros to automate post-event reporting, reducing manual data entry time by 30%[cite: 185, 186].</li>
-                        [cite_start]<li><strong>Collaboration:</strong> Partnered with Product, Sales, and Design teams to align event strategies with GTM goals, ensuring data consistency[cite: 187].</li>
-                        [cite_start]<li><strong>Project Management:</strong> Utilized Jira and Confluence to track project lifecycles, ensuring 100% on-time delivery of analytical reports[cite: 189].</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Data Analyst / Market Research Consultant</div>
-                        <div class="card-subtitle">Insight Hub</div>
-                    </div>
-                    <div class="card-date">11/2024 - Present</div>
-                </div>
-                <div class="card-content">
-                    [cite_start]<p style="color: var(--text-secondary); margin-bottom: 10px;">Leveraged advanced SQL to analyze high-volume transaction data (500k+ records) for the fintech sector[cite: 193].</p>
-                    <ul>
-                        [cite_start]<li><strong>Dashboards:</strong> Built interactive SQL-based dashboards to track DAU, Volume, and Retention Rates[cite: 194].</li>
-                        [cite_start]<li><strong>Data Quality:</strong> Ensured integrity and compliance with privacy standards by implementing rigorous validation scripts in Python and SQL[cite: 198].</li>
-                        [cite_start]<li><strong>Data Warehousing:</strong> Contributed to frameworks using UNION ALL to aggregate disparate database schemas into a unified metrics system[cite: 199].</li>
-                        [cite_start]<li><strong>Master Data Management:</strong> Led data mapping and conversion efforts to aggregate legacy schemas into a unified Master Data framework[cite: 202].</li>
-                    </ul>
-                </div>
-            </div>
-
-        </section>
-
-        <section>
-            <h2>Education</h2>
             
-            <div class="education-item">
-                <div>
-                    <div style="font-weight: bold; font-size: 1.1rem;">Masters in Management Information Systems</div>
-                    <div style="color: var(--accent);">Auburn University at Montgomery</div>
+            <div class="header-title" style="font-size: 1.5rem; margin-top: 20px;">Education</div>
+            <div class="dashboard-grid">
+                <div class="stat-card pink">
+                    <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="card-label" style="color:var(--accent-pink);">Masters (MIS)</div>
+                    <div style="font-weight:bold; margin-top:10px;">Auburn University at Montgomery</div>
+                    <div style="font-size:0.9rem; color:#64748b;">CGPA: 9.7</div>
                 </div>
-                <div style="text-align: right;">
-                    <div>CGPA: 9.7</div>
-                    <div style="font-style: italic; color: #64748b;">08/2023 - 05/2025</div>
-                </div>
-            </div>
-
-            <div class="education-item">
-                <div>
-                    <div style="font-weight: bold; font-size: 1.1rem;">Bachelor of Science, Computer Science Technology</div>
-                    <div style="color: var(--accent);">University of Florida</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-style: italic; color: #64748b;">06/2018 - 09/2022</div>
+                <div class="stat-card orange">
+                    <div class="card-icon"><i class="fas fa-university"></i></div>
+                    <div class="card-label" style="color:var(--accent-orange);">Bachelors (CS)</div>
+                    <div style="font-weight:bold; margin-top:10px;">University of Florida</div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <footer>
-            <p>&copy; 2025 Naveen Mandula. Built with GitHub Pages.</p>
-        </footer>
+        <div id="experience" class="page-section">
+            <div class="header-title">Professional Experience</div>
 
-    </div>
+            <div class="content-card" style="border-left: 5px solid var(--accent-blue);">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Data Analyst Intern</div>
+                        <div class="company-name">Corporate Initiatives (Internship)</div>
+                    </div>
+                    <div class="job-date">07/2025 - Present</div>
+                </div>
+                <ul class="styled-list">
+                    <li>Developed Power BI dashboards to track event KPIs, registration conversion rates, and engagement metrics.</li>
+                    <li>Managed complex datasets within Excel and Workday, utilizing Macros to automate reporting, reducing manual entry time by 30%.</li>
+                    <li>Partnered with Product and Sales teams to align event strategies with GTM goals.</li>
+                    <li>Utilized Jira and Confluence to ensure 100% on-time delivery of reports.</li>
+                </ul>
+            </div>
 
-</body>
-</html>
+            <div class="content-card" style="border-left: 5px solid var(--accent-purple);">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Data Analyst / Consultant</div>
+                        <div class="company-name">Insight Hub</div>
+                    </div>
+                    <div class="job-date">11/2024 - Present</div>
+                </div>
+                <ul class="styled-list">
+                    <li>Leveraged advanced SQL to analyze high-volume transaction data (500k+ records) for the fintech sector.</li>
+                    <li>Utilized SQL (PostgreSQL logic) to decode unstructured transaction logs (JSON/Hex data).</li>
+                    <li>Ensured data quality and privacy compliance by implementing validation scripts in Python.</li>
+                    <li>Led data mapping efforts using UNION ALL to aggregate disparate legacy schemas into a Master Data framework.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="projects" class="page-section">
+            <div class="header-title">Featured Projects</div>
+
+            <div class="dashboard-grid">
+                <div class="stat-card teal">
+                    <div class="card-icon" style="color:var(--accent-teal);"><i class="fas fa-truck"></i></div>
+                    <div style="font-weight:800; font-size:1.2rem; margin-bottom:10px;">Supply Chain Dashboard</div>
+                    <p style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">
+                        Analyzed shipping delay patterns across 5 global regions. Conducted root-cause analysis to identify "Last Mile" risks using Tableau.
+                    </p>
+                    <a href="#" style="color:var(--accent-teal); font-weight:bold; text-decoration:none;">View Dashboard &rarr;</a>
+                </div>
+
+                <div class="stat-card purple">
+                    <div class="card-icon" style="color:var(--accent-purple);"><i class="fas fa-chart-bar"></i></div>
+                    <div style="font-weight:800; font-size:1.2rem; margin-bottom:10px;">Market Liquidity Analysis</div>
+                    <p style="font-size
