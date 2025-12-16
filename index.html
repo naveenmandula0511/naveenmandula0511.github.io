@@ -130,8 +130,8 @@
         /* --- CARDS & GRIDS --- */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Increased min-width to prevent squishing */
+            gap: 30px; /* Increased gap for cleaner look */
             margin-bottom: 30px;
         }
 
@@ -143,6 +143,9 @@
             transition: transform 0.2s;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .stat-card:hover { transform: translateY(-5px); }
         .stat-card.blue { background: var(--grad-card-1); }
@@ -229,7 +232,6 @@
         <div class="social-links">
             <a href="www.linkedin.com/in/mandulan1" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
             <a href="mailto:naveenmandula0511@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
-            
             <a href="resume.pdf" target="_blank" class="social-btn" title="Download Resume"><i class="fas fa-file-pdf"></i></a>
         </div>
     </aside>
@@ -299,7 +301,9 @@
                 <div class="stat-card teal">
                     <div style="font-size: 1.4rem; font-weight: 800; margin-bottom: 10px;">Supply Chain Dashboard</div>
                     <p style="font-size: 0.95rem; opacity: 0.9; margin-bottom: 20px;">Visualized shipping delay patterns across 5 global regions using Tableau to identify 'Last Mile' risks.</p>
-                   <a href="#" target="_blank" style="color: white; font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(255,255,255,0.5); padding-bottom: 2px; transition: 0.3s;">View Dashboard &rarr;</a>
+                    
+                    <a href="#" target="_blank" style="color: white; font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(255,255,255,0.5); padding-bottom: 2px; transition: 0.3s; align-self: flex-start;">View Dashboard &rarr;</a>
+                </div>
 
                 <div class="stat-card purple">
                     <div style="font-size: 1.4rem; font-weight: 800; margin-bottom: 10px;">Market Liquidity Analysis</div>
